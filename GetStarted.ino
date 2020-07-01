@@ -17,7 +17,7 @@ static uint64_t send_interval_ms;
 
 static float temperature;
 static float humidity;
-
+static const char *current_color = "\"none\"";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Utilities
@@ -98,18 +98,27 @@ static int DeviceMethodCallback(const char *methodName, const unsigned char *pay
     messageSending = false;
     LogInfo("led red");
     toggleRedLED();
+    current_color = "\"red\"";
   }
   else if (strcmp(methodName, "ledGreen") == 0)
   {
     messageSending = false;
     LogInfo("led green");
     toggleGreenLED();
+    current_color = "\"green\"";
   }
   else if (strcmp(methodName, "ledBlue") == 0)
   {
     messageSending = false;
     LogInfo("led blue");
     toggleBlueLED();
+    current_color = "\"blue\"";
+  }
+  else if (strcmp(methodName, "getColor") == 0)
+  {
+    messageSending = false;
+    LogInfo("get color");
+    responseMessage = current_color;
   }
   else
   {
